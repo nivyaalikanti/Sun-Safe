@@ -30,7 +30,7 @@ Copy the commands below into your terminal and follow the steps.
 ### 1. Clone the repository and install dependencies
 
 ```bash
-git clone [https://github.com/your-repo.git](https://github.com/your-repo.git)
+git clone [https://github.com/nivyaalikanti/Sun-Safe.git](https://github.com/nivyaalikanti/Sun-Safe.git)
 cd your-repo
 npm install
 ````
