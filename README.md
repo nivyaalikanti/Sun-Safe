@@ -1,4 +1,4 @@
-````markdown
+
 # AI-Powered UV Index Alert and Recommendation System
 
 ## Overview
