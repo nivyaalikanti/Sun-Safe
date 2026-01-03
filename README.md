@@ -1,5 +1,5 @@
 
-# AI-Powered UV Index Alert and Recommendation System
+# UV Index Monitoring and Alert System
 
 ## Overview
 
