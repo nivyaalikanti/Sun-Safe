@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function SubscribeForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [threshold, setThreshold] = useState(6);
   const [frequency, setFrequency] = useState("daily");
   const [peakAlert, setPeakAlert] = useState(true);
@@ -26,6 +27,7 @@ export default function SubscribeForm() {
         await axios.post("http://localhost:5000/api/subscribe", {
           name,
           phone,
+          email,
           latitude: pos.coords.latitude,
           longitude: pos.coords.longitude,
           uvThreshold: Number(threshold),
@@ -38,6 +40,7 @@ export default function SubscribeForm() {
         // Reset form
         setName("");
         setPhone("");
+        setEmail("");
         setThreshold(6);
         setFrequency("daily");
         setPeakAlert(true);
@@ -77,7 +80,7 @@ export default function SubscribeForm() {
           onChange={(e) => setName(e.target.value)}
         />
 
-        <label>Phone Number</label>
+        <label>Phone Number (optional)</label>
         <input
           type="text"
           placeholder="+91 9876543210"
@@ -85,6 +88,15 @@ export default function SubscribeForm() {
           onChange={(e) => setPhone(e.target.value)}
         />
         <small>For SMS alerts during extreme UV conditions</small>
+
+        <label>Email (optional)</label>
+        <input
+          type="email"
+          placeholder="your.email@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <small>For email notifications</small>
       </div>
 
       <div className="card">
