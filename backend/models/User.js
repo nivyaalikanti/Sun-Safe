@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema({
     default: true
   },
 
+  email: {
+    type: String,
+    required: false
+  },
+
   lastAlertSent: Date,
 
   isActive: {
