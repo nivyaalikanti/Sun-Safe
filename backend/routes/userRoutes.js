@@ -7,6 +7,7 @@ router.post("/subscribe", async (req, res) => {
     const {
       name,
       phone,
+      email,
       latitude,
       longitude,
       uvThreshold,
@@ -17,6 +18,7 @@ router.post("/subscribe", async (req, res) => {
     const user = new User({
       name,
       phone,
+      email,
       latitude,
       longitude,
       uvThreshold,
