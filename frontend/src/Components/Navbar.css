@@ -1,0 +1,16 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white; 
+  width: 100vw;
+}
+
+.alert-btn {
+  background-color: #fb8500;
+  color: white;
+  padding: 12px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+}

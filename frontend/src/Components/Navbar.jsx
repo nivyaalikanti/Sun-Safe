@@ -1,23 +1,29 @@
 import logo from "../assets/logo.png";
+import './Navbar.css';
 import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <div className="navbar">
-      <div className="logo">
-        <img src={logo} alt="SunSafe Logo" className="logo-img" />
 
+      {/* Logo → Home */}
+      <div className="logo">
+        <Link to="/">
+          <img src={logo} alt="SunSafe Logo" className="logo-img" />
+        </Link>
       </div>
 
       <div className="nav-links">
-        <button>
-          <Link to="/dashboard" className="dashboard-btn" >Dashboard</Link>
-        </button>
-        <button
-          className="alert-btn"
-          style={{ backgroundColor: "#fb8500" }}
-        >
+
+        {/* Dashboard */}
+        <Link to="/dashboard" className="dashboard-btn">
+          Dashboard
+        </Link>
+
+        {/* Get Alerts */}
+        <Link to="/subscribe" className="alert-btn">
           Get Alerts
-        </button>
+        </Link>
 
       </div>
     </div>

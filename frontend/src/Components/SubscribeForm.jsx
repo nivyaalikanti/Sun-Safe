@@ -67,7 +67,7 @@ export default function SubscribeForm() {
 
   return (
     <div className="form-container">
-
+      <div className="forms">
       <div className="card">
         <h2>📩 Contact Information</h2>
         <p className="subtitle">Where should we send your UV alerts?</p>
@@ -80,19 +80,19 @@ export default function SubscribeForm() {
           onChange={(e) => setName(e.target.value)}
         />
 
-        <label>Phone Number (optional)</label>
+        <label>Phone Number *</label>
         <input
           type="text"
-          placeholder="+91 9876543210"
+          placeholder="+1 (555) 123-4567"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
         <small>For SMS alerts during extreme UV conditions</small>
 
-        <label>Email (optional)</label>
+        <label>Email *</label>
         <input
           type="email"
-          placeholder="your.email@example.com"
+          placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -115,6 +115,9 @@ export default function SubscribeForm() {
             max="11"
             value={threshold}
             onChange={(e) => setThreshold(e.target.value)}
+            style={{
+    background: `linear-gradient(to right, #ff8a00 0%, #ff8a00 ${(threshold / 11) * 100}%, #e2e8f0 ${(threshold / 11) * 100}%, #e2e8f0 100%)`
+  }}
           />
 
           <small>
@@ -156,7 +159,7 @@ export default function SubscribeForm() {
           </label>
         </div>
       </div>
-
+      </div>
       <button className="subscribe-btn" onClick={subscribe} disabled={loading}>
         {loading ? "Subscribing..." : "Subscribe to Alerts"}
       </button>

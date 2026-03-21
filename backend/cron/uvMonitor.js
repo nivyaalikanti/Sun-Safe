@@ -5,10 +5,10 @@ const { getUVIndex } = require("../services/openuvService");
 const { sendSMS } = require("../services/smsService");
 const { sendEmail } = require("../services/emailService");
 
-const COOLDOWN = 1 * 60 * 1000; // 1 min
-// const COOLDOWN = 2 * 60 * 60 * 1000; // 2 hours
+// const COOLDOWN = 1 * 60 * 1000; // 1 min
+const COOLDOWN = 2 * 60 * 60 * 1000; // 2 hours
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("*/30 * * * *", async () => {
   console.log("Running UV check...");
 
   const users = await User.find({ isActive: true });
