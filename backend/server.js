@@ -10,7 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", require("./routes/userRoutes"));
 app.use("/api/uv", require("./routes/uvRoutes"));
-
+const mapRoutes = require("./routes/mapRoutes");
+app.use("/api/map", mapRoutes);
 
 require("./cron/uvMonitor");
 
