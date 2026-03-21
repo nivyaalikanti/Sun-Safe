@@ -1,6 +1,7 @@
 import logo from "../assets/logo.png";
 import './Navbar.css';
 import { Link } from "react-router-dom";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Navbar() {
   return (
@@ -14,16 +15,21 @@ export default function Navbar() {
       </div>
 
       <div className="nav-links">
-
+        <Link to="/map" className="map-link">
+  <FaMapMarkerAlt className="map-icon" />
+  Map
+</Link>
         {/* Dashboard */}
         <Link to="/dashboard" className="dashboard-btn">
           Dashboard
         </Link>
-
+        
         {/* Get Alerts */}
         <Link to="/subscribe" className="alert-btn">
           Get Alerts
         </Link>
+
+
 
       </div>
     </div>

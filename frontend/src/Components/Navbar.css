@@ -14,3 +14,21 @@
   text-decoration: none;
   font-weight: 700;
 }
+
+.map-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.map-link:hover {
+  color: #fb8500;
+}
+
+.map-icon {
+  font-size: 16px;
+}

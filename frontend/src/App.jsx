@@ -7,6 +7,7 @@ import Footer from "./Components/Footer";
 import Dashboard from "./Components/Dashboard";
 import { Routes, Route } from "react-router-dom";
 import SubscribeForm from "./components/SubscribeForm";
+import MapView from "./Components/MapView";
 
 function Home() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/subscribe" element={<SubscribeForm />} />
+        <Route path="/map" element={<MapView />} />
       </Routes>
     </>
   );
