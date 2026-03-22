@@ -83,7 +83,7 @@ export default function SubscribeForm() {
         <label>Phone Number *</label>
         <input
           type="text"
-          placeholder="+1 (555) 123-4567"
+          placeholder="+911234567890"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />

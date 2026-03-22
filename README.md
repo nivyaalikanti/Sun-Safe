@@ -69,6 +69,28 @@ Frontend → Express API → MongoDB
 
 ---
 
+## Project Screenshots
+
+### Home Page
+![Home Page](./frontend/src/assets/home.png)
+
+### Dashboard
+![Dashboard](./frontend/src/assets/dashboard.png)
+
+### Alerts
+![Alerts](./frontend/src/assets/alerts.png)
+
+### Map View
+![Map View 1](./frontend/src/assets/map1.png)
+
+![Map View 2](./frontend/src/assets/map2.png)
+
+
+### SMS Alerts
+![SMS Alerts](./frontend/src/assets/smsAlerts.jpeg)
+
+---
+
 ## Folder Structure
 
 ```text
