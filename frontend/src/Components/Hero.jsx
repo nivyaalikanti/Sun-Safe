@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <div className="hero">
       <div className="tag">✨ Protect your skin, enjoy the sun</div>
@@ -15,8 +17,12 @@ export default function Hero() {
       </p>
 
       <div className="actions">
-        <button className="primary-btn">Check UV Now →</button>
-        <button className="secondary-btn">🔔 Subscribe for Alerts</button>
+        <button className="primary-btn" onClick={() => navigate("/dashboard")}>
+          Check UV Now →
+        </button>
+        <button className="secondary-btn" onClick={() => navigate("/subscribe")}>
+          🔔 Subscribe for Alerts
+        </button>
       </div>
     </div>
   );
