@@ -37,8 +37,10 @@ export default function MapView() {
   const [place, setPlace] = useState("");
   const [uv, setUV] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [searchPlace, setSearchPlace] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
+  // Fetch UV Index from backend
   const getUV = async () => {
     if (!coords) {
       setErrorMsg("Please select a location on the map first");
@@ -62,6 +64,8 @@ export default function MapView() {
       setLoading(false);
     }
   };
+
+  // Get Location Name - OpenStreetMap Nominatim API
   const getLocationName = async (lat, lon) => {
     try {
       const res = await fetch(
@@ -86,6 +90,53 @@ export default function MapView() {
     }
   };
 
+  // Search location by name
+  const searchLocation = async () => {
+    if (!searchPlace) return;
+
+    try {
+      setLoading(true);
+      setErrorMsg("");
+
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${searchPlace}&format=json&limit=1`
+      );
+
+      const data = await res.json();
+
+      if (data.length === 0) {
+        setErrorMsg("Location not found");
+        return;
+      }
+
+      const lat = parseFloat(data[0].lat);
+      const lon = parseFloat(data[0].lon);
+
+      const newCoords = { lat, lng: lon };
+
+      setCoords(newCoords);
+      setPlace(searchPlace);
+
+    } catch (err) {
+      setErrorMsg("Failed to search location");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //Helper function to change map view when coords change
+  function ChangeMapView({ coords }) {
+    const map = useMapEvents({});
+
+    useEffect(() => {
+      if (coords) {
+        map.setView(coords, 10);
+      }
+    }, [coords, map]);
+
+    return null;
+  }
+
   useEffect(() => {
     if (!coords) {
       setPlace("");
@@ -93,6 +144,7 @@ export default function MapView() {
     }
     getLocationName(coords.lat, coords.lng);
   }, [coords]);
+  // UV Risk Assessment
   const getRisk = (uv) => {
     if (uv <= 2) return "Low";
     if (uv <= 5) return "Moderate";
@@ -100,81 +152,94 @@ export default function MapView() {
     if (uv <= 10) return "Very High";
     return "Extreme";
   };
+
+  // UV Safety Advice
   const getAdvice = (uv) => {
-  if (uv <= 2) return "🟢 Safe to go outside. Enjoy your day!";
-  if (uv <= 5) return "🟡 Moderate risk. Wear sunglasses and sunscreen.";
-  if (uv <= 7) return "🟠 High risk. Stay in shade during noon hours.";
-  if (uv <= 10) return "🔴 Very high risk. Avoid going out without protection.";
-  return "🚨 Extreme risk. Stay indoors as much as possible!";
-};
+    if (uv <= 2) return "🟢 Safe to go outside. Enjoy your day!";
+    if (uv <= 5) return "🟡 Moderate risk. Wear sunglasses and sunscreen.";
+    if (uv <= 7) return "🟠 High risk. Stay in shade during noon hours.";
+    if (uv <= 10) return "🔴 Very high risk. Avoid going out without protection.";
+    return "🚨 Extreme risk. Stay indoors as much as possible!";
+  };
   return (
-  <div className="map-page">
+    <div className="map-page">
+      <div className="map-card">
 
-    
-
-    <div className="map-card">
-
-      {/* LEFT SIDE */}
-      <div className="map-left">
-        <div className="map-wrapper">
-          <MapContainer
-            center={[17.385, 78.4867]}
-            zoom={10}
-            style={{ height: "420px", width: "100%" }}
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <LocationMarker setCoords={setCoords} setPlace={setPlace} coords={coords} />
-          </MapContainer>
-        </div>
-
-        {/* BUTTON BELOW MAP */}
-        <div className="btn-container">
-          <button className="uv-btn" onClick={getUV} disabled={loading}>
-            {loading ? "Fetching..." : "Get UV Index"}
-          </button>
-        </div>
-      </div>
-
-      {/* RIGHT SIDE → RESULTS */}
-      <div className="map-right">
-
-        {errorMsg && (
-          <div className="error-msg">{errorMsg}</div>
-        )}
-
-        {uv !== null && coords && (
-          <div className="uv-result">
-
-            <div className="result-item">
-              <span>📍 Coordinates:</span>
-              <p>{coords.lat.toFixed(4)}, {coords.lng.toFixed(4)}</p>
-            </div>
-
-            <div className="result-item">
-              <span>📌 Location name:</span>
-              <p>{place || "Loading location..."}</p>
-            </div>
-
-            <div className="result-item">
-              <span>☀️ UV Index:</span>
-              <p>{uv}</p>
-            </div>
-
-            <div className="result-item">
-              <span>⚠️ Risk:</span>
-              <p>{getRisk(uv)}</p>
-            </div>
-
-            <div className="result-msg">
-              {getAdvice(uv)}
-            </div>
-
+        {/* LEFT SIDE */}
+        <div className="map-left">
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Enter location (e.g. Hyderabad)"
+              value={searchPlace}
+              onChange={(e) => setSearchPlace(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && searchLocation()}
+            />
+            <button onClick={searchLocation} disabled={loading}>
+              Search
+            </button>
           </div>
-        )}
+          <div className="map-wrapper">
+
+            <MapContainer
+              center={[17.385, 78.4867]}
+              zoom={10}
+              style={{ height: "420px", width: "100%" }}
+            >
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+              <LocationMarker setCoords={setCoords} setPlace={setPlace} coords={coords} />
+              <ChangeMapView coords={coords} />
+            </MapContainer>
+          </div>
+
+          {/* BUTTON BELOW MAP */}
+          <div className="btn-container">
+            <button className="uv-btn" onClick={getUV} disabled={loading}>
+              {loading ? "Fetching..." : "Get UV Index"}
+            </button>
+          </div>
+        </div>
+
+        {/* RIGHT SIDE → RESULTS */}
+        <div className="map-right">
+
+          {errorMsg && (
+            <div className="error-msg">{errorMsg}</div>
+          )}
+
+          {uv !== null && coords && (
+            <div className="uv-result">
+
+              <div className="result-item">
+                <span>📍 Coordinates:</span>
+                <p>{coords.lat.toFixed(4)}, {coords.lng.toFixed(4)}</p>
+              </div>
+
+              <div className="result-item">
+                <span>📌 Location name:</span>
+                <p>{place || "Loading location..."}</p>
+              </div>
+
+              <div className="result-item">
+                <span>☀️ UV Index:</span>
+                <p>{uv}</p>
+              </div>
+
+              <div className="result-item">
+                <span>⚠️ Risk:</span>
+                <p>{getRisk(uv)}</p>
+              </div>
+
+              <div className="result-msg">
+                {getAdvice(uv)}
+              </div>
+
+            </div>
+          )}
+
+        </div>
 
       </div>
-
     </div>
-  </div>
-);
+  );
 }
