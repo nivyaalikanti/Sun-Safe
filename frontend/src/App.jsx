@@ -8,6 +8,7 @@ import Dashboard from "./Components/Dashboard";
 import { Routes, Route } from "react-router-dom";
 import SubscribeForm from "./components/SubscribeForm";
 import MapView from "./Components/MapView";
+import History from "./Components/History";
 
 function Home() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/subscribe" element={<SubscribeForm />} />
         <Route path="/map" element={<MapView />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </>
   );

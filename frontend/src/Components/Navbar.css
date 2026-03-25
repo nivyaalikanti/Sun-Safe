@@ -32,3 +32,18 @@
 .map-icon {
   font-size: 16px;
 }
+.history-btn {
+  background-color: transparent;
+  border: 2px solid #ddd;
+  color: black;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  margin: 10px;
+}
+.history-icon {
+  font-size: 16px;
+  margin-right: 6px;
+}
