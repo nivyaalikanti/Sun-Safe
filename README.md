@@ -32,6 +32,19 @@ The backend periodically checks UV levels using scheduled cron jobs and sends no
 
 ---
 
+## External Integrations
+
+This project uses the following external APIs and services:
+
+- **OpenUV API**  
+  Used to fetch real-time UV index data based on user-selected coordinates.
+
+- **OpenStreetMap (Nominatim API)**  
+  Used for map rendering and reverse geocoding (converting coordinates to location names).
+
+- **Twilio SMS API**  
+  Used to send UV alerts and notifications to users via SMS.
+
 ## Technology Stack
 
 ### Frontend
