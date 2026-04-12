@@ -13,29 +13,39 @@ import "./History.css";
 export default function History() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [city, setCity] = useState("Hyderabad");
 
   useEffect(() => {
     fetchHistory();
-  }, []);
+  }, [city]);
 
-  const fetchHistory = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/api/map/uv-history");
-      const result = await res.json();
-      setData(result);
-    } catch (err) {
-      console.error("Error fetching history", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+
+const fetchHistory = async () => {
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/uv/history?city=${city}`
+    );
+    const result = await res.json();
+    setData(result);
+  } catch (err) {
+    console.error("Error fetching history", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="history-page">
       <div className="history-card">
         <h2>UV Index History (Today)</h2>
         <p className="history-subtitle">Last recorded values across your selected location.</p>
-
+        <select onChange={(e) => setCity(e.target.value)}>
+  <option value="Hyderabad">Hyderabad</option>
+  <option value="Delhi">Delhi</option>
+  <option value="Mumbai">Mumbai</option>
+  <option value="Chennai">Chennai</option>
+  <option value="Kolkata">Kolkata</option>
+</select>
         {loading ? (
           <p className="history-loading">Loading graph...</p>
         ) : data.length === 0 ? (
