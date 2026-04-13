@@ -45,6 +45,14 @@ This project uses the following external APIs and services:
 - **Twilio SMS API**  
   Used to send UV alerts and notifications to users via SMS.
 
+
+
+---
+
+## System Architecture
+![System Architecture](./frontend/src/assets/architecture.png)
+
+---
 ## Technology Stack
 
 ### Frontend
@@ -60,28 +68,7 @@ This project uses the following external APIs and services:
 * MongoDB
 * Mongoose
 * node-cron
-
-### External Services
-
-* OpenUV API
-* Twilio SMS API
-
 ---
-
-## System Architecture
-
-```text
-Frontend → Express API → MongoDB
-                    ↓
-               Cron Scheduler
-                    ↓
-               OpenUV Service
-                    ↓
-               SMS Notification
-```
-
----
-
 ## Project Screenshots
 
 ### Home Page
