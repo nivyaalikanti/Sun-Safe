@@ -31,6 +31,7 @@ router.get("/", async (req, res) => {
       {
         params: { lat, lng },
         headers: {
+          
           "x-access-token": process.env.OPENUV_API_KEY
         }
       }
